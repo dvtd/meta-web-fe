@@ -16,6 +16,7 @@ module.exports = {
               indentedSyntax: true // optional
             },
             // Requires sass-loader@^8.0.0
+            // eslint-disable-next-line no-dupe-keys
             options: {
               implementation: require('sass'),
               sassOptions: {
