@@ -17,7 +17,7 @@ const transformRequestOptions = params => {
   }
   return options ? options.slice(0, -1) : options
 }
-class APIHelper {
+class METACore {
   get (url, obj) {
     return axios
       .get(API_URL + url, {
@@ -84,4 +84,4 @@ class APIHelper {
   }
 }
 
-export default new APIHelper()
+export default new METACore()
