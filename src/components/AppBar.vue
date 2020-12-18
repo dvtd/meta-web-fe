@@ -47,7 +47,7 @@
       >
         <template v-slot:activator="{ attrs, on }">
           <v-btn class="ml-2" min-width="0" text v-bind="attrs" v-on="on">
-              <v-icon color="#262261">mdi-account</v-icon>
+            <v-icon color="#262261">mdi-account</v-icon>
           </v-btn>
         </template>
         <v-card>
@@ -91,7 +91,9 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title class="title-drawer">Thao Nguyen</v-list-item-title>
+            <v-list-item-title class="title-drawer"
+              >Thao Nguyen</v-list-item-title
+            >
             <v-list-item-subtitle class="subtitle-drawer"
               >thaonguyen@truongvietanh.com</v-list-item-subtitle
             >
@@ -102,18 +104,52 @@
         <v-list-item-group active-class="deep-purple--text text--accent-4">
           <v-list-item>
             <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
+              <v-icon color="#f1c40f">mdi-home</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title class="title-drawer">Home</v-list-item-title>
           </v-list-item>
           <v-list-item>
             <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
+              <v-icon color="#f1c40f">mdi-account</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
+            <v-list-item-title class="title-drawer">Account</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="#f1c40f">mdi-timetable</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="title-drawer"
+              >Timetable</v-list-item-title
+            >
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="#f1c40f">mdi-frequently-asked-questions</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="title-drawer">Request</v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="#f1c40f">mdi-history</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="title-drawer">History</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
+         <template v-slot:append>
+           <v-card class="mx-auto" max-width="400" tile color="#262261">
+            <v-list dense shaped flat rounded>
+              <v-list-item-group color="primary">
+                <v-list-item @click="logout">
+                  <v-list-item-icon>
+                    <v-icon color="#f1c40f">mdi-logout</v-icon>
+                  </v-list-item-icon>
+                   <v-list-item-title class="title-drawer">LOGOUT</v-list-item-title>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-card>
+    </template>
     </v-navigation-drawer>
   </nav>
 </template>
@@ -167,20 +203,7 @@ export default {
       offsetY: true,
       offsetX: true,
       numberNoti: 0,
-      drawer: false,
-      right: false,
-      permanent: true,
-      expandOnHover: true,
-      requests: [
-        ['XXX', 'mdi-book-open'],
-        ['XXX', 'mdi-read']
-      ],
-      services: [
-        ['Create', 'mdi-plus'],
-        ['Read', 'mdi-read'],
-        ['Update', 'mdi-update'],
-        ['Delete', 'mdi-delete']
-      ]
+      drawer: false
     }
   },
   mounted () {
@@ -198,17 +221,17 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-.header-image{
-height: 38px;
-display: block;
+.header-image {
+  height: 38px;
+  display: block;
 }
-.title-drawer{
-color: #f1c40f;
-font-weight: bold !important;
+.title-drawer {
+  color: #f1c40f;
+  font-weight: bold !important;
 }
-.subtitle-drawer{
-color: #f1c40f !important;
-opacity: 0.8;
+.subtitle-drawer {
+  color: #f1c40f !important;
+  opacity: 0.8;
 }
 .v-list-item__content {
   width: 18vw;
