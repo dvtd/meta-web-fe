@@ -1,15 +1,15 @@
 <template>
   <v-app>
-    <meta-appbar />
+    <meta-navigation />
   </v-app>
 </template>
 
 <script>
-import AppBar from '@/components/AppBar'
+import Navigation from '@/components/Navigation'
 export default {
   name: 'IndexPage',
   components: {
-    'meta-appbar': AppBar
+    'meta-navigation': Navigation
   }
 }
 </script>

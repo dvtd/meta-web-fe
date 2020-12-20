@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Index from '../views/Index.vue'
+import RequestList from '../views/RequestList'
 
 Vue.use(VueRouter)
 
@@ -10,7 +11,18 @@ const routes = [
     path: '/',
     name: 'Index',
     component: Index,
-    children: []
+    children: [
+      // {
+      //   path: 'requestlist',
+      //   name: 'RequestList',
+      //   component: RequestList
+      // }
+    ]
+  },
+  {
+    path: '/requestlist',
+    name: 'RequestList',
+    component: RequestList
   }
 ]
 
@@ -19,5 +31,4 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
 export default router
