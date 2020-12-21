@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Index from '../views/Index.vue'
 import RequestList from '../views/RequestList'
+import SchoolList from '../views/SchoolList'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
     path: '/requestlist',
     name: 'RequestList',
     component: RequestList
+  },
+  {
+    path: '/schoolList',
+    name: 'SchoolList',
+    component: SchoolList
   }
 ]
 
