@@ -73,17 +73,14 @@
               :items-per-page="5"
               :search="search"
             >
-              <template v-slot:item.ticketId="{ item }">
+              <template v-slot:item.requestID="{ item }">
                 <router-link
-                  :to="{ path: 'request', query: { ticketId: item.ticketId } }"
-                  >{{ item.ticketId }}</router-link
+                  :to="{ path: 'requestdetail', query: { ticketId: item.requestID } }"
+                  >{{ item.requestID }}</router-link
                 >
               </template>
-              <template v-slot:item.beginDateTime="{ item }">
-                {{ item.beginDateTime | formatDatetime }}
-              </template>
-              <template v-slot:item.dueDateTime="{ item }">
-                {{ item.dueDateTime | formatDatetime }}
+              <template v-slot:item.sendAtTime="{ item }">
+                {{ item.sendAtTime | formatDatetime }}
               </template>
               <template v-slot:item.status="{ item }">
                 <v-chip :color="getColor(item.status)" dark>
@@ -148,9 +145,9 @@ export default {
     },
     clickToEditRequest (request) {
       this.$router.push({
-        path: '/request',
-        query: { ticketId: request.ticketId },
-        params: { ticketId: request.ticketId }
+        path: '/requestID',
+        query: { ticketId: request.requestID },
+        params: { ticketId: request.requestID }
       })
     },
     changeTab () {
@@ -164,20 +161,12 @@ export default {
           this._getAllRequestOfDepartment()
           break
         }
-        case 'Expired': {
-          this._getAllRequestOfDepartment('Expired')
+        case 'Accpeted': {
+          this._getAllRequestOfDepartment('Accpeted')
           break
         }
         case 'In-Progress': {
           this._getAllRequestOfDepartment('In-Progress')
-          break
-        }
-        case 'Waiting': {
-          this._getAllRequestOfDepartment('Waiting')
-          break
-        }
-        case 'Finished': {
-          this._getAllRequestOfDepartment('Finished')
           break
         }
         case 'Rejected': {

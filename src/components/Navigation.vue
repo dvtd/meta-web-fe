@@ -126,7 +126,9 @@
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-frequently-asked-questions</v-icon>
             </v-list-item-icon>
-            <v-list-item-title class="title-drawer">Request</v-list-item-title>
+            <v-list-item-title class="title-drawer" @click="swtichToRequestPage"
+              >Request</v-list-item-title
+            >
           </v-list-item>
           <v-list-item>
             <v-list-item-icon>
@@ -136,20 +138,22 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-         <template v-slot:append>
-           <v-card class="mx-auto" max-width="400" tile color="#262261">
-            <v-list dense shaped flat rounded>
-              <v-list-item-group color="primary">
-                <v-list-item @click="logout">
-                  <v-list-item-icon>
-                    <v-icon color="#f1c40f">mdi-logout</v-icon>
-                  </v-list-item-icon>
-                   <v-list-item-title class="title-drawer">LOGOUT</v-list-item-title>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-card>
-    </template>
+      <template v-slot:append>
+        <v-card class="mx-auto" max-width="400" tile color="#262261">
+          <v-list dense shaped flat rounded>
+            <v-list-item-group color="primary">
+              <v-list-item @click="logout">
+                <v-list-item-icon>
+                  <v-icon color="#f1c40f">mdi-logout</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title class="title-drawer"
+                  >LOGOUT</v-list-item-title
+                >
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-card>
+      </template>
     </v-navigation-drawer>
   </nav>
 </template>
@@ -216,6 +220,9 @@ export default {
     logout () {
       this._logout()
       this.$router.push('/login')
+    },
+    swtichToRequestPage () {
+      this.$router.push('/requestlist')
     }
   }
 }

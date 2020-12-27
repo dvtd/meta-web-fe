@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Index from '../views/Index.vue'
 import RequestList from '../views/RequestList'
+import RequestDetails from '@/views/RequestDetails'
 
 Vue.use(VueRouter)
 
@@ -12,17 +13,17 @@ const routes = [
     name: 'Index',
     component: Index,
     children: [
-      // {
-      //   path: 'requestlist',
-      //   name: 'RequestList',
-      //   component: RequestList
-      // }
+      {
+        path: 'requestlist',
+        name: 'RequestList',
+        component: RequestList
+      },
+      {
+        path: 'requestdetail',
+        name: 'RequestDetails',
+        component: RequestDetails
+      }
     ]
-  },
-  {
-    path: '/requestlist',
-    name: 'RequestList',
-    component: RequestList
   }
 ]
 

@@ -6,7 +6,7 @@
           color="primary"
           icon="mdi-frequently-asked-questions"
           title=" All Request"
-          :value="_getFinishedRequest"
+          :value="_getFinishedRequest ? '100' : '100'"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           class="subCard"
@@ -16,8 +16,8 @@
         <base-material-stats-card
           color="amber"
           icon="mdi-account-question"
-          title="In-Progress Request"
-          :value="_getTotalWaitingRequest"
+          title="In-Progress"
+          :value="_getTotalWaitingRequest ? '50' : '50' "
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           class="subCard"
@@ -27,8 +27,8 @@
         <base-material-stats-card
           color="success"
           icon="mdi-account-check"
-          title="Accepted Request"
-          :value="_getTotalRejectedRequest"
+          title="Accepted"
+          :value="_getTotalRejectedRequest ? '30' : '30' "
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           class="subCard"
@@ -38,8 +38,8 @@
         <base-material-stats-card
           color="red"
           icon="mdi-account-cancel"
-          title=" Rejected Request"
-          :value="_getTotalInProgressRequest"
+          title=" Rejected"
+          :value="_getTotalInProgressRequest ? '20' :'20'"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           class="subCard"
@@ -68,7 +68,7 @@ export default {
     'base-material-stats-card': MaterialStatsCard
   },
   computed: {
-    ...mapGetters('requestlist', ['_getListOfRequest']),
+    ...mapGetters('requestList', ['_getListOfRequest']),
     ...mapGetters('dashboard', [
       '_getListTotalTypeRequest',
       '_getFinishedRequest',
@@ -84,19 +84,19 @@ export default {
           text: 'RequestID',
           align: 'start',
           sortable: false,
-          value: 'ticketId'
+          value: 'requestID'
         },
         { text: 'ServiceName', value: 'serviceNm' },
         { text: 'Content', value: 'content' },
-        { text: 'SendAtTime', value: 'sendattime' },
-        { text: 'Status', value: 'status' }
-        // { text: 'Edit', value: 'actions', sortable: false }
+        { text: 'sendAtTime', value: 'sendAtTime' },
+        { text: 'Status', value: 'status' },
+        { text: 'Edit', value: 'actions', sortable: false }
       ]
     }
   },
   mounted () {
-    this._getAllRequestOfDepartment()
-    this._getAllRequestOfDepartmentDashboard()
+    // this._getAllRequestOfDepartment()
+    // this._getAllRequestOfDepartmentDashboard()
   },
   methods: {
     ...mapActions('requestlist', ['_getAllRequestOfDepartment']),
