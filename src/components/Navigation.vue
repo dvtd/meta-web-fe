@@ -112,7 +112,7 @@
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-account</v-icon>
             </v-list-item-icon>
-            <v-list-item-title class="title-drawer">Account</v-list-item-title>
+            <v-list-item-title class="title-drawer" @click="switchToProfilePage">Account</v-list-item-title>
           </v-list-item>
           <v-list-item>
             <v-list-item-icon>
@@ -126,7 +126,7 @@
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-frequently-asked-questions</v-icon>
             </v-list-item-icon>
-            <v-list-item-title class="title-drawer" @click="swtichToRequestPage"
+            <v-list-item-title class="title-drawer" @click="switchToRequestPage"
               >Request</v-list-item-title
             >
           </v-list-item>
@@ -221,8 +221,11 @@ export default {
       this._logout()
       this.$router.push('/login')
     },
-    swtichToRequestPage () {
+    switchToRequestPage () {
       this.$router.push('/requestlist')
+    },
+    switchToProfilePage () {
+      this.$router.push('/userprofile')
     }
   }
 }

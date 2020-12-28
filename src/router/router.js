@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Index from '../views/Index.vue'
 import RequestList from '../views/RequestList'
 import RequestDetails from '@/views/RequestDetails'
+import UserProfile from '@/views/UserProfile'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
         path: 'requestdetail',
         name: 'RequestDetails',
         component: RequestDetails
+      },
+      {
+        path: 'userprofile',
+        name: 'UserProfile',
+        component: UserProfile
       }
     ]
   }

@@ -1,19 +1,20 @@
 <template>
-  <v-card
-    v-bind="$attrs"
-    :class="classes"
-    class="v-card--material pa-3"
-  >
+  <v-card v-bind="$attrs" :class="classes" class="v-card--material pa-3">
     <div class="d-flex grow flex-wrap">
-      <v-avatar
-        v-if="avatar"
-        size="128"
-        class="mx-auto v-card--material__avatar elevation-6"
-        color="grey"
-      >
-        <v-img :src="avatar" />
-      </v-avatar>
-
+      <div class="d-flex grow flex-wrap" v-if="avatar">
+        <v-avatar
+          size="128"
+          class="mx-auto v-card--material__avatar elevation-6"
+          color="grey"
+        >
+          <v-img :src="avatar" />
+        </v-avatar>
+        <v-col cols="12" class="text-center">
+          <v-btn color="amber" class="mr-0">
+            Change Avatar
+          </v-btn>
+        </v-col>
+      </div>
       <v-sheet
         v-else
         :class="{
@@ -26,15 +27,9 @@
         class="text-start v-card--material__heading mb-n6"
         dark
       >
-        <slot
-          v-if="$slots.heading"
-          name="heading"
-        />
+        <slot v-if="$slots.heading" name="heading" />
 
-        <slot
-          v-else-if="$slots.image"
-          name="image"
-        />
+        <slot v-else-if="$slots.image" name="image" />
 
         <div
           v-else-if="title && !icon"
@@ -42,35 +37,17 @@
           v-text="title"
         />
 
-        <v-icon
-          v-else-if="icon"
-          size="32"
-          v-text="icon"
-        />
+        <v-icon v-else-if="icon" size="32" v-text="icon" />
 
-        <div
-          v-if="text"
-          class="headline font-weight-thin"
-          v-text="text"
-        />
+        <div v-if="text" class="headline font-weight-thin" v-text="text" />
       </v-sheet>
 
-      <div
-        v-if="$slots['after-heading']"
-        class="ml-6"
-      >
+      <div v-if="$slots['after-heading']" class="ml-6">
         <slot name="after-heading" />
       </div>
 
-      <div
-        v-else-if="icon && title"
-        class="ml-4"
-      >
-        <div
-
-          class="card-title font-weight-light"
-          v-text="title"
-        />
+      <div v-else-if="icon && title" class="ml-4">
+        <div class="card-title font-weight-light" v-text="title" />
       </div>
     </div>
     <slot />
@@ -133,15 +110,15 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-  .v-card--material
-    &__avatar
-      position: relative
-      top: -64px
-      margin-bottom: -32px
+.v-card--material
+  &__avatar
+    position: relative
+    top: -64px
+    margin-bottom: -32px
 
-    &__heading
-      position: relative
-      top: -40px
-      transition: .3s ease
-      z-index: 1
+  &__heading
+    position: relative
+    top: -40px
+    transition: .3s ease
+    z-index: 1
 </style>

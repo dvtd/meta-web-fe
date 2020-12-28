@@ -2,7 +2,7 @@
   <v-container id="regular-tables" fluid tag="section">
     <v-row>
       <v-col cols="12" md="3">
-        <base-material-stats-card
+        <meta-material-stats-card
           color="primary"
           icon="mdi-frequently-asked-questions"
           title=" All Request"
@@ -13,7 +13,7 @@
         />
       </v-col>
       <v-col cols="12" md="3">
-        <base-material-stats-card
+        <meta-material-stats-card
           color="amber"
           icon="mdi-account-question"
           title="In-Progress"
@@ -24,7 +24,7 @@
         />
       </v-col>
       <v-col cols="12" md="3">
-        <base-material-stats-card
+        <meta-material-stats-card
           color="success"
           icon="mdi-account-check"
           title="Accepted"
@@ -35,7 +35,7 @@
         />
       </v-col>
       <v-col cols="12" md="3">
-        <base-material-stats-card
+        <meta-material-stats-card
           color="red"
           icon="mdi-account-cancel"
           title=" Rejected"
@@ -65,7 +65,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     'request-grid': RequestGrid,
-    'base-material-stats-card': MaterialStatsCard
+    'meta-material-stats-card': MaterialStatsCard
   },
   computed: {
     ...mapGetters('requestList', ['_getListOfRequest']),
