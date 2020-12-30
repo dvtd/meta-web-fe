@@ -13,4 +13,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > th,
+.v-data-table > .v-data-table__wrapper > table > tfoot > tr > th,
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  font-size: 0.85rem;
+}
+</style>

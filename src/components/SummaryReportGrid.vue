@@ -32,6 +32,52 @@
         <div v-else-if="icon && title" class="ml-4">
           <div class="card-title font-weight-light" v-text="title" />
         </div>
+
+        <v-spacer></v-spacer>
+        <v-menu
+          v-model="menu1"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="fromDate"
+              label="From date"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="fromDate" @input="menu1 = false"></v-date-picker>
+        </v-menu>
+        <v-menu
+          v-model="menu2"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="toDate"
+              label="To date"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="toDate" @input="menu2 = false"></v-date-picker>
+        </v-menu>
+        <v-btn class="ma-2" color="blue darken-4" dark>
+          Find
+          <v-icon dark right> mdi-update </v-icon>
+        </v-btn>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -45,15 +91,30 @@
       <v-card>
         <v-data-table
           :headers="headers"
+          :headers-length="10"
           :items="Teachers"
           :search="search"
-          :items-per-page="-1"
+          :footer-props="{
+            'items-per-page-options': [10, 20, 30, 40, 50]
+          }"
+          :items-per-page="30"
         >
-          <template v-slot:item.runtimehr="{ item }">
-            {{ item.runtimemin | convertMinToHour }}
+          <template v-slot:[`item.present`]="{ item }">
+            {{ item.session | calculatePresent(item.absent) }}
           </template>
-          <template v-slot:item.day="{ item }">
+          <template v-slot:[`item.day`]="{ item }">
             {{ item.date | getDayOfTheWeek }}
+          </template>
+          <template v-slot:[`item.runTimeMin`]="{ item }">
+            {{ item.session | calculatePresent(item.absent) | calculateRunTimeMin }}
+          </template>
+          <template v-slot:[`item.runTimeHr`]="{ item }">
+            {{
+              item.session
+                | calculatePresent(item.absent)
+                | calculateRunTimeMin
+                | calculateRunTimeHour
+            }}
           </template>
         </v-data-table>
       </v-card>
@@ -62,12 +123,17 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
-  data () {
+  data: function () {
     return {
       icon: 'mdi-clipboard-text',
       title: 'SUMMARY REPORT',
       search: '',
+      fromDate: new Date(Date.now() - 86400000 * 7).toISOString().substring(0, 10),
+      toDate: new Date().toISOString().substr(0, 10),
+      menu1: false,
+      menu2: false,
       headers: [
         {
           text: 'Teacher',
@@ -80,8 +146,10 @@ export default {
         { text: 'Date ', value: 'date' },
         { text: 'Day ', value: 'day' },
         { text: 'Session ', value: 'session' },
-        { text: 'Run time (min) ', value: 'runtimemin' },
-        { text: 'Runtime (hour) ', value: 'runtimehr' },
+        { text: 'Absent ', value: 'absent' },
+        { text: 'Present ', value: 'present' },
+        { text: 'Run time (min) ', value: 'runTimeMin' },
+        { text: 'Runtime (hour) ', value: 'runTimeHr' },
         { text: 'OT ', value: 'ovetime' },
         { text: 'Total ', value: 'total' }
       ],
@@ -93,8 +161,10 @@ export default {
           date: '12/1/2020',
           day: 0,
           session: 6,
-          runtimemin: 240,
-          runtimehr: 0,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
           ovetime: 0,
           total: 0
         },
@@ -102,11 +172,209 @@ export default {
           name: 'Michelle',
           class: 210,
           shift: '07:30 - 16:25',
-          date: '12/12/2020',
+          date: '12/1/2020',
+          day: 0,
+          session: 7,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Dan',
+          class: 159,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
           day: 0,
           session: 6,
-          runtimemin: 240,
-          runtimehr: 0,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Michelle',
+          class: 210,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 7,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Dan',
+          class: 159,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 6,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Michelle',
+          class: 210,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 7,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Dan',
+          class: 159,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 6,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Michelle',
+          class: 210,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 7,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Dan',
+          class: 159,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 6,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Michelle',
+          class: 210,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 7,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Dan',
+          class: 159,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 6,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Michelle',
+          class: 210,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 7,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Dan',
+          class: 159,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 6,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Michelle',
+          class: 210,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 7,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Dan',
+          class: 159,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 6,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
+          ovetime: 0,
+          total: 0
+        },
+        {
+          name: 'Michelle',
+          class: 210,
+          shift: '07:30 - 16:25',
+          date: '12/1/2020',
+          day: 0,
+          session: 7,
+          absent: 0,
+          present: 0,
+          runTimeMin: 0,
+          runTimeHr: 0,
           ovetime: 0,
           total: 0
         }
@@ -114,13 +382,20 @@ export default {
     }
   },
   filters: {
-    convertMinToHour: function (value) {
-      return parseInt(value) / 60
+    calculatePresent: function (session, absent) {
+      return session - absent
+    },
+    calculateRunTimeMin: function (value) {
+      return parseInt(value) * 40
+    },
+    calculateRunTimeHour: function (value) {
+      return parseFloat(parseInt(value) / 60).toFixed(2)
+    },
+    formatDatetime: function (value) {
+      return moment(value).format('DD/MM/YYYY')
     },
     getDayOfTheWeek: function (value) {
       var date = new Date(value)
-      console.log(date.toString())
-      console.log(date.getDay())
       switch (date.getDay()) {
         case 0:
           return 'Sunday'
@@ -143,5 +418,15 @@ export default {
   }
 }
 </script>
-
-<style></style>
+<style lang="scss" scoped>
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > th,
+.v-data-table > .v-data-table__wrapper > table > tfoot > tr > th,
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 1000px;
+  height: 48px;
+}
+</style>
