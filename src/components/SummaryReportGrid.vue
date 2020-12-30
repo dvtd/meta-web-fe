@@ -116,6 +116,18 @@
                 | calculateRunTimeHour
             }}
           </template>
+          <!-- <template v-slot:item.isNoted="{ item }">
+            <v-icon
+              v-if="item.isNoted"
+              small
+              class="mr-2"
+              @click="clickToEditRequest(item)"
+              >mdi-notebook-outline</v-icon
+            >
+          </template> -->
+          <template v-slot:item.isNoted="{ item }">
+            <div v-html="item.isNoted"></div>
+          </template>
         </v-data-table>
       </v-card>
     </v-card>
@@ -151,7 +163,8 @@ export default {
         { text: 'Run time (min) ', value: 'runTimeMin' },
         { text: 'Runtime (hour) ', value: 'runTimeHr' },
         { text: 'OT ', value: 'ovetime' },
-        { text: 'Total ', value: 'total' }
+        { text: 'Total ', value: 'total' },
+        { text: 'Note', value: 'isNoted', sortable: false }
       ],
       Teachers: [
         {
@@ -161,12 +174,12 @@ export default {
           date: '12/1/2020',
           day: 0,
           session: 6,
-          absent: 0,
-          present: 0,
+          absent: 3,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
-          total: 0
+          total: 0,
+          isNoted: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa <br/>aaaaaaaaaaaaaaaaaaaaaaaaaaaa <br/>'
         },
         {
           name: 'Michelle',
@@ -175,8 +188,7 @@ export default {
           date: '12/1/2020',
           day: 0,
           session: 7,
-          absent: 0,
-          present: 0,
+          absent: 2,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -186,11 +198,10 @@ export default {
           name: 'Dan',
           class: 159,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/2/2020',
           day: 0,
           session: 6,
-          absent: 0,
-          present: 0,
+          absent: 1,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -200,11 +211,10 @@ export default {
           name: 'Michelle',
           class: 210,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/2/2020',
           day: 0,
           session: 7,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -214,11 +224,10 @@ export default {
           name: 'Dan',
           class: 159,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/3/2020',
           day: 0,
           session: 6,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -228,11 +237,10 @@ export default {
           name: 'Michelle',
           class: 210,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/3/2020',
           day: 0,
           session: 7,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -242,11 +250,10 @@ export default {
           name: 'Dan',
           class: 159,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/4/2020',
           day: 0,
           session: 6,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -256,11 +263,10 @@ export default {
           name: 'Michelle',
           class: 210,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/4/2020',
           day: 0,
           session: 7,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -270,11 +276,10 @@ export default {
           name: 'Dan',
           class: 159,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/7/2020',
           day: 0,
           session: 6,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -284,11 +289,10 @@ export default {
           name: 'Michelle',
           class: 210,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/7/2020',
           day: 0,
           session: 7,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -298,11 +302,10 @@ export default {
           name: 'Dan',
           class: 159,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/8/2020',
           day: 0,
           session: 6,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -312,11 +315,10 @@ export default {
           name: 'Michelle',
           class: 210,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/8/2020',
           day: 0,
           session: 7,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -326,11 +328,10 @@ export default {
           name: 'Dan',
           class: 159,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/9/2020',
           day: 0,
           session: 6,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -340,11 +341,10 @@ export default {
           name: 'Michelle',
           class: 210,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/9/2020',
           day: 0,
           session: 7,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -354,11 +354,10 @@ export default {
           name: 'Dan',
           class: 159,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/10/2020',
           day: 0,
           session: 6,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -368,11 +367,10 @@ export default {
           name: 'Michelle',
           class: 210,
           shift: '07:30 - 16:25',
-          date: '12/1/2020',
+          date: '12/10/2020',
           day: 0,
           session: 7,
           absent: 0,
-          present: 0,
           runTimeMin: 0,
           runTimeHr: 0,
           ovetime: 0,
@@ -418,15 +416,4 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.v-data-table > .v-data-table__wrapper > table > tbody > tr > th,
-.v-data-table > .v-data-table__wrapper > table > tfoot > tr > th,
-.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  font-size: 1000px;
-  height: 48px;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" md="3">
         <base-material-stats-card
-          color="primary"
+          color="blue darken-4"
           icon="mdi-frequently-asked-questions"
           title=" All Request"
           :value="_getFinishedRequest ? '100' : '100'"
@@ -17,7 +17,7 @@
           color="amber"
           icon="mdi-account-question"
           title="In-Progress"
-          :value="_getTotalWaitingRequest ? '50' : '50' "
+          :value="_getTotalWaitingRequest ? '50' : '50'"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           class="subCard"
@@ -28,7 +28,7 @@
           color="success"
           icon="mdi-account-check"
           title="Accepted"
-          :value="_getTotalRejectedRequest ? '30' : '30' "
+          :value="_getTotalRejectedRequest ? '30' : '30'"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           class="subCard"
@@ -39,32 +39,35 @@
           color="red"
           icon="mdi-account-cancel"
           title=" Rejected"
-          :value="_getTotalInProgressRequest ? '20' :'20'"
+          :value="_getTotalInProgressRequest ? '20' : '20'"
           sub-icon="mdi-clock"
           sub-text="Just Updated"
           class="subCard"
         />
       </v-col>
     </v-row>
-    <request-grid
-      icon="mdi-clipboard-text"
+    <meta-request-grid
+      :icon="iconTable"
       title="LIST OF REQUEST"
       class="px-5 py-3"
       :headerTable="headers"
       :dataTable="_getListOfRequest"
+      :requestGrid=true
+      :tabTitle="tabs"
+      :colorGrid="colorTabs"
     >
-    </request-grid>
+    </meta-request-grid>
 
     <div class="py-3" />
   </v-container>
 </template>
 <script>
-import RequestGrid from '@/components/RequestGrid'
+import DataGrid from '@/components/DataGrid'
 import MaterialStatsCard from '@/components/MaterialStatsCard'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
-    'request-grid': RequestGrid,
+    'meta-request-grid': DataGrid,
     'base-material-stats-card': MaterialStatsCard
   },
   computed: {
@@ -91,7 +94,28 @@ export default {
         { text: 'sendAtTime', value: 'sendAtTime' },
         { text: 'Status', value: 'status' },
         { text: 'Edit', value: 'actions', sortable: false }
-      ]
+      ],
+      iconTable: [
+        'mdi-frequently-asked-questions',
+        'mdi-account-question',
+        'mdi-account-check',
+        'mdi-account-cancel'
+      ],
+      tabs: [
+        {
+          title: 'All'
+        },
+        {
+          title: 'In-Progress'
+        },
+        {
+          title: 'Accepted'
+        },
+        {
+          title: 'Rejected'
+        }
+      ],
+      colorTabs: ['blue darken-4', 'amber', 'success', 'red']
     }
   },
   mounted () {
