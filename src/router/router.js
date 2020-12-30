@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Index from '../views/Index.vue'
 import RequestList from '../views/RequestList'
 import RequestDetails from '@/views/RequestDetails'
-
+import SummaryReport from '@/views/SummaryReport'
 Vue.use(VueRouter)
 
 const routes = [
@@ -22,6 +22,11 @@ const routes = [
         path: 'requestdetail',
         name: 'RequestDetails',
         component: RequestDetails
+      },
+      {
+        path: 'SummaryReport',
+        name: 'SummaryReport',
+        component: SummaryReport
       }
     ]
   }

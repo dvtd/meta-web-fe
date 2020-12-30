@@ -136,6 +136,12 @@
             </v-list-item-icon>
             <v-list-item-title class="title-drawer">History</v-list-item-title>
           </v-list-item>
+                  <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="#f1c40f">mdi-file-table </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title class="title-drawer" @click="switchToSummaryReportPage" >Summary Report</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
       <template v-slot:append>
@@ -221,8 +227,12 @@ export default {
       this._logout()
       this.$router.push('/login')
     },
+    // Fix this method !!
     swtichToRequestPage () {
       this.$router.push('/requestlist')
+    },
+    switchToSummaryReportPage () {
+      this.$router.push('/SummaryReport')
     }
   }
 }
