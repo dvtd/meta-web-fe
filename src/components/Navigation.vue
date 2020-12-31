@@ -128,11 +128,11 @@
             </v-list-item-icon>
             <v-list-item-title class="title-drawer">History</v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <v-list-item @click="switchToSummaryReportPage">
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-file-table </v-icon>
             </v-list-item-icon>
-            <v-list-item-title class="title-drawer" @click="switchToSummaryReportPage"
+            <v-list-item-title class="title-drawer"
               >Summary Report</v-list-item-title
             >
           </v-list-item>

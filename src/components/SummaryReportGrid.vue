@@ -90,9 +90,9 @@
       <v-tabs dark background-color="blue darken-4"> </v-tabs>
       <v-card>
         <v-data-table
-          :headers="headers"
+          :headers="headerTable"
           :headers-length="10"
-          :items="Teachers"
+          :items="dataTable"
           :search="search"
           :footer-props="{
             'items-per-page-options': [10, 20, 30, 40, 50]
@@ -116,18 +116,11 @@
                 | calculateRunTimeHour
             }}
           </template>
-          <!-- <template v-slot:item.isNoted="{ item }">
-            <v-icon
-              v-if="item.isNoted"
-              small
-              class="mr-2"
-              @click="clickToEditRequest(item)"
+          <!-- <template v-slot:[`item.note`]="{ item }">
+            <v-icon v-if="item.note" small class="mr-2" @click="clickToEditRequest(item)"
               >mdi-notebook-outline</v-icon
             >
           </template> -->
-          <template v-slot:item.isNoted="{ item }">
-            <div v-html="item.isNoted"></div>
-          </template>
         </v-data-table>
       </v-card>
     </v-card>
@@ -145,238 +138,17 @@ export default {
       fromDate: new Date(Date.now() - 86400000 * 7).toISOString().substring(0, 10),
       toDate: new Date().toISOString().substr(0, 10),
       menu1: false,
-      menu2: false,
-      headers: [
-        {
-          text: 'Teacher',
-          align: 'start',
-          filterable: true,
-          value: 'name'
-        },
-        { text: 'Class', value: 'class' },
-        { text: 'Shift ', value: 'shift' },
-        { text: 'Date ', value: 'date' },
-        { text: 'Day ', value: 'day' },
-        { text: 'Session ', value: 'session' },
-        { text: 'Absent ', value: 'absent' },
-        { text: 'Present ', value: 'present' },
-        { text: 'Run time (min) ', value: 'runTimeMin' },
-        { text: 'Runtime (hour) ', value: 'runTimeHr' },
-        { text: 'OT ', value: 'ovetime' },
-        { text: 'Total ', value: 'total' },
-        { text: 'Note', value: 'isNoted', sortable: false }
-      ],
-      Teachers: [
-        {
-          name: 'Dan',
-          class: 159,
-          shift: '07:30 - 16:25',
-          date: '12/1/2020',
-          day: 0,
-          session: 6,
-          absent: 3,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0,
-          isNoted: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa <br/>aaaaaaaaaaaaaaaaaaaaaaaaaaaa <br/>'
-        },
-        {
-          name: 'Michelle',
-          class: 210,
-          shift: '07:30 - 16:25',
-          date: '12/1/2020',
-          day: 0,
-          session: 7,
-          absent: 2,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Dan',
-          class: 159,
-          shift: '07:30 - 16:25',
-          date: '12/2/2020',
-          day: 0,
-          session: 6,
-          absent: 1,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Michelle',
-          class: 210,
-          shift: '07:30 - 16:25',
-          date: '12/2/2020',
-          day: 0,
-          session: 7,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Dan',
-          class: 159,
-          shift: '07:30 - 16:25',
-          date: '12/3/2020',
-          day: 0,
-          session: 6,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Michelle',
-          class: 210,
-          shift: '07:30 - 16:25',
-          date: '12/3/2020',
-          day: 0,
-          session: 7,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Dan',
-          class: 159,
-          shift: '07:30 - 16:25',
-          date: '12/4/2020',
-          day: 0,
-          session: 6,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Michelle',
-          class: 210,
-          shift: '07:30 - 16:25',
-          date: '12/4/2020',
-          day: 0,
-          session: 7,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Dan',
-          class: 159,
-          shift: '07:30 - 16:25',
-          date: '12/7/2020',
-          day: 0,
-          session: 6,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Michelle',
-          class: 210,
-          shift: '07:30 - 16:25',
-          date: '12/7/2020',
-          day: 0,
-          session: 7,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Dan',
-          class: 159,
-          shift: '07:30 - 16:25',
-          date: '12/8/2020',
-          day: 0,
-          session: 6,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Michelle',
-          class: 210,
-          shift: '07:30 - 16:25',
-          date: '12/8/2020',
-          day: 0,
-          session: 7,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Dan',
-          class: 159,
-          shift: '07:30 - 16:25',
-          date: '12/9/2020',
-          day: 0,
-          session: 6,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Michelle',
-          class: 210,
-          shift: '07:30 - 16:25',
-          date: '12/9/2020',
-          day: 0,
-          session: 7,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Dan',
-          class: 159,
-          shift: '07:30 - 16:25',
-          date: '12/10/2020',
-          day: 0,
-          session: 6,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        },
-        {
-          name: 'Michelle',
-          class: 210,
-          shift: '07:30 - 16:25',
-          date: '12/10/2020',
-          day: 0,
-          session: 7,
-          absent: 0,
-          runTimeMin: 0,
-          runTimeHr: 0,
-          ovetime: 0,
-          total: 0
-        }
-      ]
+      menu2: false
+    }
+  },
+  props: {
+    headerTable: {
+      type: Array,
+      default: undefined
+    },
+    dataTable: {
+      type: Array,
+      default: undefined
     }
   },
   filters: {
