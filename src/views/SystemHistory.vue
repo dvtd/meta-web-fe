@@ -33,7 +33,7 @@ export default {
           email: 'thaonguyen@truongvietanh.com',
           role: 'admin',
           action: 'create user',
-          time: new Date(Date.now() + 3600000 * 10).toUTCString()
+          time: new Date(Date.now() - 3600000 * 1).toUTCString()
         },
         {
           user: 'thaonguyen@truongvietanh.com',
@@ -41,7 +41,7 @@ export default {
           email: 'thaonguyen@truongvietanh.com',
           role: 'admin',
           action: 'update user',
-          time: new Date(Date.now() + 3600000 * 9).toUTCString()
+          time: new Date(Date.now() - 3600000 * 2).toUTCString()
         },
         {
           user: 'thaonguyen@truongvietanh.com',
@@ -49,15 +49,15 @@ export default {
           email: 'thaonguyen@truongvietanh.com',
           role: 'admin',
           action: 'remove user',
-          time: new Date(Date.now() + 3600000 * 8).toUTCString()
+          time: new Date(Date.now() - 3600000 * 3).toUTCString()
         },
         {
           user: 'Dan@truongvietanh.com',
           name: 'Dan',
           email: 'Dan@truongvietanh.com',
           role: 'teacher',
-          action: 'Logined in the device',
-          time: new Date(Date.now() + 3600000 * 7).toUTCString()
+          action: 'Logged in the device',
+          time: new Date(Date.now() - 3600000 * 4).toUTCString()
         },
         {
           user: 'thaonguyen@truongvietanh.com',
@@ -65,7 +65,7 @@ export default {
           email: 'thaonguyen@truongvietanh.com',
           role: 'admin',
           action: 'Approved a report',
-          time: new Date(Date.now() + 3600000 * 6).toUTCString()
+          time: new Date(Date.now() - 3600000 * 5).toUTCString()
         },
         {
           user: 'thaonguyen@truongvietanh.com',
@@ -73,15 +73,15 @@ export default {
           email: 'thaonguyen@truongvietanh.com',
           role: 'admin',
           action: 'Disapproved a report',
-          time: new Date(Date.now() + 3600000 * 5).toUTCString()
+          time: new Date(Date.now() - 3600000 * 6).toUTCString()
         },
         {
           user: 'Michelle@truongvietanh.com',
           name: 'Michelle',
           email: 'Michelle@truongvietanh.com',
           role: 'teacher',
-          action: 'Logined in the Website',
-          time: new Date(Date.now() + 3600000 * 4).toUTCString()
+          action: 'Logged in the Website',
+          time: new Date(Date.now() - 3600000 * 7).toUTCString()
         },
         {
           user: 'Michelle@truongvietanh.com',
@@ -89,7 +89,7 @@ export default {
           email: 'Michelle@truongvietanh.com',
           role: 'teacher',
           action: 'Created a request',
-          time: new Date(Date.now() + 3600000 * 3).toUTCString()
+          time: new Date(Date.now() - 3600000 * 8).toUTCString()
         }
       ]
     }

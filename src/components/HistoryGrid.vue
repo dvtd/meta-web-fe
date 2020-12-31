@@ -99,6 +99,9 @@
           }"
           :items-per-page="30"
         >
+          <template v-slot:[`item.time`]="{ item }">
+            {{ item.time | formatDatetime }}
+          </template>
         </v-data-table>
       </v-card>
     </v-card>
@@ -106,6 +109,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   data: function () {
     return {
@@ -116,6 +120,11 @@ export default {
       toDate: new Date().toISOString().substr(0, 10),
       menu1: false,
       menu2: false
+    }
+  },
+  filters: {
+    formatDatetime: function (value) {
+      return moment(value).format('MM/DD/YYYY kk:mm:ss')
     }
   },
   props: {
