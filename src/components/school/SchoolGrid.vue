@@ -1,7 +1,32 @@
 <template>
   <v-card v-bind="$attrs" :class="classes" class="v-card--material pa-3">
     <div class="d-flex grow flex-wrap">
-      <v-toolbar-title>Schools Management</v-toolbar-title>
+      <v-sheet
+        :class="{
+          'pa-7': !$slots.image
+        }"
+        :color="colorTable"
+        :max-height="icon ? 90 : undefined"
+        :width="icon ? 'auto' : '100%'"
+        elevation="6"
+        class="text-start v-card--material__heading mb-n6"
+        dark
+      >
+        <slot v-if="$slots.heading" name="heading" />
+
+        <slot v-else-if="$slots.image" name="image" />
+
+        <div
+          v-else-if="title && !icon"
+          class="display-1 font-weight-light"
+          v-text="title"
+        />
+
+        <v-icon v-else-if="icon" size="32" v-text="icon" />
+      </v-sheet>
+      <div class="ml-4">
+        <div class="card-title font-weight-light" v-text="title" />
+      </div>
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -9,14 +34,9 @@
         label="Search"
         single-line
       ></v-text-field>
-      <v-divider
-        class="mx-4"
-        inset
-        vertical
-      ></v-divider>
       <v-spacer></v-spacer>
-      <info-filter-dialog :is-dialog-open="dialog" :edited-item="editedItem" :form-title="formTitle" @close="close" @save="save"></info-filter-dialog>
-      <delete-dialog :is-dialog-open="dialogDelete" @close="closeDelete" @confirm="deleteItemConfirm"></delete-dialog>
+      <info-filter-dialog :is-dialog-open="dialog" :edited-item="editedItem" :form-title="formTitle" @close="close"></info-filter-dialog>
+      <warning-dialog :is-dialog-open="dialogWarning" @close="closeDelete" @confirm="deleteItemConfirm" :dialog-content="warningContent"></warning-dialog>
     </div>
     <v-card>
       <v-tabs
@@ -71,10 +91,10 @@
 
 <script>
 
-import DeleteDialog from './DeleteDialog'
+import WarningDialog from '../WarningDialog'
 import InfoFilterDialog from './InfoFilterDialog'
 export default {
-  components: { 'info-filter-dialog': InfoFilterDialog, 'delete-dialog': DeleteDialog },
+  components: { 'info-filter-dialog': InfoFilterDialog, 'warning-dialog': WarningDialog },
   props: {
     headerData: {
       type: Array,
@@ -87,22 +107,27 @@ export default {
   },
   data () {
     return {
+      title: 'LIST OF SCHOOL',
+      icon: 'mdi-warehouse',
+      colorTable: 'black',
       dialog: false,
-      dialogDelete: false,
+      dialogWarning: false,
+      warningContent: '',
+      isWarning: false,
       editedIndex: -1,
       editedItem: {
-        ContractInfo: '',
+        ContactInfo: '',
         Id: 0,
         IsDeleted: false,
-        LocationId: 0,
+        Location: 0,
         Name: '',
         Representative: ''
       },
       defaultItem: {
-        ContractInfo: '',
+        ContactInfo: '',
         Id: 0,
         IsDeleted: false,
-        LocationId: 0,
+        Location: 0,
         Name: '',
         Representative: ''
       },
@@ -134,7 +159,7 @@ export default {
     dialog (val) {
       val || this.close()
     },
-    dialogDelete (val) {
+    dialogWarning (val) {
       val || this.closeDelete()
     }
   },
@@ -143,16 +168,27 @@ export default {
     editItem (item) {
       this.editedIndex = this.tableData.indexOf(item)
       this.editedItem = Object.assign({}, item)
+      if (this.editedItem.IsDeleted === true) {
+        this.warningContent = 'This school: ' + this.editedItem.Name + ' is deleted! You cannot edit it!'
+        this.dialogWarning = true
+        this.isWarning = true
+        return
+      }
       this.dialog = true
     },
 
     deleteItem (item) {
       this.editedIndex = this.tableData.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.dialogDelete = true
+      this.warningContent = 'Are you sure you want to delete this item?'
+      this.dialogWarning = true
     },
 
     deleteItemConfirm () {
+      if (this.isWarning === true) {
+        this.closeDelete()
+        return
+      }
       this.tableData.splice(this.editedIndex, 1)
       this.closeDelete()
     },
@@ -166,20 +202,14 @@ export default {
     },
 
     closeDelete () {
-      this.dialogDelete = false
+      if (this.isWarning === true) {
+        this.isWarning = false
+      }
+      this.dialogWarning = false
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
-    },
-
-    save () {
-      if (this.editedIndex > -1) {
-        Object.assign(this.tableData[this.editedIndex], this.editedItem)
-      } else {
-        this.tableData.push(this.editedItem)
-      }
-      this.close()
     },
 
     changeTab () {

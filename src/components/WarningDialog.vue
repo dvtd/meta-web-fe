@@ -6,7 +6,7 @@
         dense
         type="warning"
       >
-        Are you sure you want to delete this <strong>school</strong>?
+        {{dialogContent}}
       </v-alert>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -21,19 +21,8 @@
 <script>
 export default {
   props: {
-    isDialogOpen: Boolean
-  },
-  data () {
-    return {
-
-    }
-  },
-  methods: {
-
+    isDialogOpen: Boolean,
+    dialogContent: String
   }
 }
 </script>
-
-<style scoped>
-
-</style>

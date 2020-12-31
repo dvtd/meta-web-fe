@@ -14,7 +14,7 @@
       </v-col>
       <v-col cols="12" md="3">
         <base-material-stats-card
-          color="amber"
+          color="success"
           icon="mdi-school"
           title="Primary School"
           :value="_getTotalWaitingRequest"
@@ -25,7 +25,7 @@
       </v-col>
       <v-col cols="12" md="3">
         <base-material-stats-card
-          color="success"
+          color="amber"
           icon="mdi-school"
           title="Secondary school"
           :value="_getTotalRejectedRequest"
@@ -70,8 +70,8 @@ export default {
       },
       { text: 'Name', value: 'Name' },
       { text: 'Representative', value: 'Representative' },
-      { text: 'LocationId', value: 'LocationId' },
-      { text: 'ContractInfo', value: 'ContractInfo' },
+      { text: 'Location', value: 'Location' },
+      { text: 'ContactInfo', value: 'ContactInfo' },
       { text: 'IsDeleted', value: 'IsDeleted' },
       { text: 'Actions', value: 'actions', sortable: false }
     ],
@@ -97,72 +97,72 @@ export default {
         Id: 92,
         Name: 'Alli Benka',
         Representative: 'Atlante Rassell',
-        LocationId: 21,
-        ContractInfo: 'arassell0@nbcnews.com',
+        Location: 'Address 1',
+        ContactInfo: 'arassell0@nbcnews.com',
         IsDeleted: true
       },
       {
         Id: 55,
         Name: 'Riannon Eginton',
         Representative: 'Lotte Edes',
-        LocationId: 71,
-        ContractInfo: 'ledes1@cargocollective.com',
+        Location: 'Address 2',
+        ContactInfo: 'ledes1@cargocollective.com',
         IsDeleted: false
       },
       {
         Id: 84,
         Name: 'Bernardina Farres',
         Representative: 'Terrill Wegener',
-        LocationId: 63,
-        ContractInfo: 'twegener2@blogspot.com',
+        Location: 'Address 3',
+        ContactInfo: 'twegener2@blogspot.com',
         IsDeleted: false
       },
       {
         Id: 38,
         Name: 'Chic Colebrook',
         Representative: 'Pierette Cuff',
-        LocationId: 71,
-        ContractInfo: 'pcuff3@amazon.com',
+        Location: 'Address 4',
+        ContactInfo: 'pcuff3@amazon.com',
         IsDeleted: true
       },
       {
         Id: 100,
         Name: 'Elyn Challiner',
         Representative: 'Paolo Ziemecki',
-        LocationId: 96,
-        ContractInfo: 'pziemecki4@nbcnews.com',
+        Location: 'Address 5',
+        ContactInfo: 'pziemecki4@nbcnews.com',
         IsDeleted: true
       },
       {
         Id: 100,
         Name: 'Elyn Challiner',
         Representative: 'Paolo Ziemecki',
-        LocationId: 96,
-        ContractInfo: 'pziemecki4@nbcnews.com',
+        Location: 'Address 6',
+        ContactInfo: 'pziemecki4@nbcnews.com',
         IsDeleted: true
       },
       {
         Id: 100,
         Name: 'Elyn Challiner',
         Representative: 'Paolo Ziemecki',
-        LocationId: 96,
-        ContractInfo: 'pziemecki4@nbcnews.com',
+        Location: 'Address 7',
+        ContactInfo: 'pziemecki4@nbcnews.com',
         IsDeleted: true
       },
       {
         Id: 100,
         Name: 'Elyn Challiner',
         Representative: 'Paolo Ziemecki',
-        LocationId: 96,
-        ContractInfo: 'pziemecki4@nbcnews.com',
+        Location: 'Address 8',
+        ContactInfo: 'pziemecki4@nbcnews.com',
         IsDeleted: true
       },
       {
         Id: 100,
         Name: 'Elyn Challiner',
         Representative: 'Paolo Ziemecki',
-        LocationId: 96,
-        ContractInfo: 'pziemecki4@nbcnews.com',
+        Location: 'Address 9',
+        ContactInfo: 'pziemecki4@nbcnews.com',
         IsDeleted: true
       }]
     }
