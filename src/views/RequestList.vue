@@ -57,7 +57,6 @@
       :colorGrid="colorTabs"
     >
     </meta-request-grid>
-
     <div class="py-3" />
   </v-container>
 </template>

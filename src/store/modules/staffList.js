@@ -12,10 +12,11 @@ export const staffList = {
         phoneNumber: '0908335207',
         address: 'HCM'
       }
-    ]
+    ],
+    _listOfRole: ['AC', 'AM', 'Teacher', 'Teacher Assistant', 'Unassigned Teacher']
   },
   getters: {
-    _getListOfstaff (state) {
+    _getListOfStaff (state) {
       return state._listOfStaff
     }
   },

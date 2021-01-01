@@ -52,6 +52,13 @@
         single-line
         hide-details
       ></v-text-field>
+      <v-spacer v-if="staffGrid" />
+      <meta-staff-dialog
+        :editedStaff="editedItem"
+        :isStaffDialog="dialog"
+        @closeDialog="close($event)"
+      >
+      </meta-staff-dialog>
     </div>
     <v-card>
       <v-tabs
@@ -80,6 +87,17 @@
               :colorStatus="colorGrid"
             >
             </meta-request-table>
+            <meta-staff-table
+              v-if="staffGrid"
+              :headerStaffTable="headerTable"
+              :dataStaffTable="dataTable"
+              :searchValue="search"
+              :parentTitleGrid="tabTitle"
+              :colorStatus="colorGrid"
+              @editStaff="updateStaff($event)"
+              @deleteStaff="deleteStaff($event)"
+            >
+            </meta-staff-table>
           </v-card>
         </v-tab-item>
       </v-tabs>
@@ -92,24 +110,39 @@
         <slot name="actions" />
       </v-card-actions>
     </template>
+        <meta-message-dialog
+        :isOpenDialog="isMessage"
+        message="Are you sure you want to delete this Staff?"
+        @closeMessageDialog="closeDialog"
+        @confirmMessageDialog="confirmDialog"
+      ></meta-message-dialog>
   </v-card>
 </template>
 
 <script>
-
 import RequestTable from '@/components/RequestTable'
+import StaffTable from '@/components/StaffTable'
+import StaffDialog from '@/components/StaffDialog'
+import MessageDialog from '@/components/MessageDialog'
+
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'DataGrid',
   components: {
-    'meta-request-table': RequestTable
+    'meta-request-table': RequestTable,
+    'meta-staff-table': StaffTable,
+    'meta-staff-dialog': StaffDialog,
+    'meta-message-dialog': MessageDialog
   },
   data () {
     return {
       search: '',
       colorTable: 'black',
       iconSelected: this.icon[0],
-      tab: this.tabTitle[0]
+      tab: this.tabTitle[0],
+      editedItem: {},
+      dialog: false,
+      isMessage: false
     }
   },
   methods: {
@@ -131,6 +164,23 @@ export default {
           this.colorTable = this.colorGrid[index]
         }
       }
+    },
+    updateStaff (staffIsSelected) {
+      this.editedItem = staffIsSelected
+      this.dialog = true
+    },
+    deleteStaff (staffIsSelected) {
+      this.editedItem = staffIsSelected
+      this.isMessage = true
+    },
+    close (isCloseDialog) {
+      this.dialog = isCloseDialog
+    },
+    closeDialog () {
+      this.isMessage = false
+    },
+    confirmDialog () {
+      this.isMessage = false
     }
   },
   props: {
@@ -168,6 +218,10 @@ export default {
       default: ''
     },
     requestGrid: {
+      type: Boolean,
+      default: false
+    },
+    staffGrid: {
       type: Boolean,
       default: false
     },
