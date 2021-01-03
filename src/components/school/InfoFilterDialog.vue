@@ -11,7 +11,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="success"
+          color="#262261"
           dark
           class="mb-2"
           v-bind="attrs"
@@ -27,7 +27,7 @@
           <v-card-title class="pa-0">
             <v-toolbar
               dark
-              color="primary"
+              color="#262261"
             >
               <v-btn
                 icon
@@ -105,50 +105,32 @@
               <v-col
               >
                 <v-text-field
-                  v-model="representative"
-                  :error-messages="representativeErrors"
-                  :counter="30"
+                  v-model="phone"
+                  :error-messages="phoneErrors"
                   outlined
                   clearable
-                  label="Representative"
+                  label="Phone"
                   prepend-inner-icon="mdi-account-tie"
                   required
-                  @input="$v.representative.$touch()"
-                  @blur="$v.representative.$touch()"
+                  @input="$v.phone.$touch()"
+                  @blur="$v.phone.$touch()"
                 ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-select
+                  v-model="schoolLevel"
+                  :items="dropdownLevel"
+                  label="School level"
+                  outlined
+                ></v-select>
               </v-col>
             </v-row>
             <v-row>
               <v-col
               >
-                <v-text-field
-                  v-model="email"
-                  :error-messages="emailErrors"
-                  label="E-mail"
-                  prepend-inner-icon="mdi-email-edit-outline"
-                  outlined
-                  clearable
-                  required
-                  @input="$v.email.$touch()"
-                  @blur="$v.email.$touch()"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col
-              >
-                <v-text-field
-                  v-model="location"
-                  :error-messages="locationErrors"
-                  outlined
-                  clearable
-                  label="Location"
-                  prepend-inner-icon="mdi-map-marker"
-                  required
-                  @input="$v.location.$touch()"
-                  @blur="$v.location.$touch()"
-                ></v-text-field>
+                <location-autocomeplete :location="location"></location-autocomeplete>
               </v-col>
             </v-row>
 
@@ -165,8 +147,10 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, email } from 'vuelidate/lib/validators'
+import LocationAutocomplete from '../LocationAutocomplete'
 
 export default {
+  components: { 'location-autocomeplete': LocationAutocomplete },
   props: {
     formTitle: String,
     isDialogOpen: Boolean,
@@ -178,17 +162,20 @@ export default {
   validations: {
     name: { required, maxLength: maxLength(30) },
     email: { required, email },
-    representative: { required, maxLength: maxLength(30) },
+    phone: { required },
     location: { required }
   },
 
   data () {
     return {
       location: '',
-      control: false,
       name: '',
       email: '',
-      representative: '',
+      phone: '',
+      schoolLevel: '',
+      searchResults: [],
+      service: null,
+      control: false,
       dropdownItems: [
         {
           title: 'Reset',
@@ -199,32 +186,64 @@ export default {
           icon: 'mdi-broom'
         }
       ],
+      dropdownLevel: [
+        'Primary', 'Secondary', 'High'
+      ],
       nameReserve: '',
       emailReserve: '',
-      representativeReserve: '',
+      phoneReserve: '',
+      schoolLevelReserve: '',
       locationReserve: ''
+    }
+  },
+
+  metaInfo () {
+    return {
+      script: [{
+        src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCk50AFQxdB0WR4DJHpawBPGcEvXPueFxI&libraries=places',
+        async: true,
+        defer: true,
+        callback: () => this.MapsInit() // will declare it in methods
+      }]
     }
   },
 
   watch: {
     editedItem: function () {
-      this.name = this.editedItem.Name
-      this.email = this.editedItem.ContactInfo
-      this.representative = this.editedItem.Representative
-      this.location = this.editedItem.Location
+      this.name = this.editedItem.SchoolName
+      this.email = this.editedItem.Email
+      this.phone = this.editedItem.PhoneNumber
+      this.location = this.editedItem.Locations
+      this.schoolLevel = this.editedItem.SchoolLevel
+      this.searchResults = [location]
 
+      this.schoolLevelReserve = this.schoolLevel
       this.nameReserve = this.name.valueOf()
       this.emailReserve = this.email.valueOf()
-      this.representativeReserve = this.representative.valueOf()
+      this.phoneReserve = this.phone.valueOf()
       this.locationReserve = this.location.valueOf()
+    },
+
+    location (newValue) {
+      if (newValue) {
+        this.service.getPlacePredictions({
+          input: this.location,
+          types: ['(cities)']
+        }, this.displaySuggestions)
+      }
     }
+
+  },
+
+  mounted () {
+    // eslint-disable-next-line no-undef,no-unused-vars
+    var autocomplete = new google.maps.places.Autocomplete(
+      this.$refs.autocomplete.$refs.input
+
+    )
   },
 
   computed: {
-    userName () {
-      console.log('Name ne: ' + this.editedItem.Name)
-      return this.editedItem.Name
-    },
     nameErrors () {
       const errors = []
       if (!this.$v.name.$dirty) return errors
@@ -232,11 +251,10 @@ export default {
       !this.$v.name.required && errors.push('Name is required.')
       return errors
     },
-    representativeErrors () {
+    phoneErrors () {
       const errors = []
-      if (!this.$v.representative.$dirty) return errors
-      !this.$v.representative.maxLength && errors.push('Representative must be at most 30 characters long')
-      !this.$v.representative.required && errors.push('Representative is required.')
+      if (!this.$v.phone.$dirty) return errors
+      !this.$v.phone.required && errors.push('phone is required.')
       return errors
     },
     emailErrors () {
@@ -268,15 +286,17 @@ export default {
       this.$v.$reset()
       this.name = ''
       this.email = ''
-      this.representative = ''
+      this.phone = ''
       this.location = ''
+      this.schoolLevel = 'Primary'
     },
     reset () {
       this.$v.$reset()
       this.name = this.nameReserve
       this.email = this.emailReserve
-      this.representative = this.representativeReserve
+      this.phone = this.phoneReserve
       this.location = this.locationReserve
+      this.schoolLevel = this.schoolLevelReserve
     },
     handleAction (i) {
       switch (i) {
@@ -288,6 +308,7 @@ export default {
           break
       }
     }
+
   }
 }
 </script>

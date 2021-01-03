@@ -32,7 +32,7 @@
           v-text="title"
         />
 
-        <v-icon v-else-if="icon" size="32" v-text="icon" />
+        <v-icon v-else-if="iconSelected" size="32" v-text="iconSelected" />
 
         <div v-if="text" class="headline font-weight-thin" v-text="text" />
       </v-sheet>
@@ -62,46 +62,29 @@
         @change="changeTab()"
       >
         <v-tabs-slider></v-tabs-slider>
-        <v-tab v-for="i in tabs" :key="i.title" :href="`#tab-${i.title}`">
+        <v-tab v-for="i in tabTitle" :key="i.title" :href="`#tab-${i.title}`">
           {{ i.title }}
         </v-tab>
-        <v-tab-item v-for="i in tabs" :key="i.title" :value="'tab-' + i.title">
+        <v-tab-item
+          v-for="i in tabTitle"
+          :key="i.title"
+          :value="'tab-' + i.title"
+        >
           <v-card flat>
-            <v-data-table
-              :headers="headerTable"
-              :items="dataTable"
-              :items-per-page="5"
-              :search="search"
+            <meta-request-table
+              v-if="requestGrid"
+              :headerRequestTable="headerTable"
+              :dataRequestTable="dataTable"
+              :searchValue="search"
+              :parentTitleGrid="tabTitle"
+              :colorStatus="colorGrid"
             >
-              <template v-slot:item.ticketId="{ item }">
-                <router-link
-                  :to="{ path: 'request', query: { ticketId: item.ticketId } }"
-                  >{{ item.ticketId }}</router-link
-                >
-              </template>
-              <template v-slot:item.beginDateTime="{ item }">
-                {{ item.beginDateTime | formatDatetime }}
-              </template>
-              <template v-slot:item.dueDateTime="{ item }">
-                {{ item.dueDateTime | formatDatetime }}
-              </template>
-              <template v-slot:item.status="{ item }">
-                <v-chip :color="getColor(item.status)" dark>
-                  {{ item.status }}
-                </v-chip>
-              </template>
-              <template v-slot:item.actions="{ item }">
-                <v-icon small class="mr-2" @click="clickToEditRequest(item)"
-                  >mdi-pencil</v-icon
-                >
-              </template>
-            </v-data-table>
+            </meta-request-table>
           </v-card>
         </v-tab-item>
       </v-tabs>
     </v-card>
     <slot />
-
     <template v-if="$slots.actions">
       <v-divider class="mt-2" />
 
@@ -113,83 +96,41 @@
 </template>
 
 <script>
-import moment from 'moment'
+
+import RequestTable from '@/components/RequestTable'
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'RequestGrid',
+  name: 'DataGrid',
+  components: {
+    'meta-request-table': RequestTable
+  },
   data () {
     return {
       search: '',
       colorTable: 'black',
-      tab: 'All',
-      tabs: [
-        {
-          title: 'All'
-        },
-        {
-          title: 'In-Progress'
-        },
-        {
-          title: 'Accepted'
-        },
-        {
-          title: 'Rejected'
-        }
-      ]
+      iconSelected: this.icon[0],
+      tab: this.tabTitle[0]
     }
   },
   methods: {
     ...mapActions('requestlist', ['_getAllRequestOfDepartment']),
-    getColor (status) {
-      if (status === 'Accepted') return 'success'
-      else if (status === 'Rejected') return 'red'
-      else if (status === 'In-Progress') return 'amber'
-      else return 'primary'
-    },
     clickToEditRequest (request) {
       this.$router.push({
-        path: '/request',
-        query: { ticketId: request.ticketId },
-        params: { ticketId: request.ticketId }
+        path: '/requestID',
+        query: { ticketId: request.requestID },
+        params: { ticketId: request.requestID }
       })
     },
     changeTab () {
-      console.log('Duong ne')
-      console.log(this.tab)
-      console.log(this.tab.split('tab-'))
-      var x = this.tab.split('tab-')[1]
-      this.colorTable = this.getColor(x)
-      switch (this.tab.split('tab-')[1]) {
-        case 'All': {
-          this._getAllRequestOfDepartment()
-          break
-        }
-        case 'Expired': {
-          this._getAllRequestOfDepartment('Expired')
-          break
-        }
-        case 'In-Progress': {
-          this._getAllRequestOfDepartment('In-Progress')
-          break
-        }
-        case 'Waiting': {
-          this._getAllRequestOfDepartment('Waiting')
-          break
-        }
-        case 'Finished': {
-          this._getAllRequestOfDepartment('Finished')
-          break
-        }
-        case 'Rejected': {
-          this._getAllRequestOfDepartment('Rejected')
-          break
+      var tabLabel = this.tab.split('tab-')[1]
+      for (let index = 0; index < this.tabTitle.length; index++) {
+        const tabCurrent = this.tabTitle[index]
+        if (tabLabel === tabCurrent.title) {
+          this._getAllRequestOfDepartment(this.tabTitle[index].title)
+          this.iconSelected = this.icon[index]
+          this.colorTable = this.colorGrid[index]
         }
       }
-    }
-  },
-  filters: {
-    formatDatetime (value) {
-      return moment(value).format('DD/MM/YYYY')
     }
   },
   props: {
@@ -206,12 +147,12 @@ export default {
       type: String,
       default: ''
     },
-    color: {
-      type: String,
-      default: 'success'
+    colorGrid: {
+      type: Array,
+      default: undefined
     },
     icon: {
-      type: String,
+      type: Array,
       default: undefined
     },
     image: {
@@ -225,6 +166,14 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    requestGrid: {
+      type: Boolean,
+      default: false
+    },
+    tabTitle: {
+      type: Array,
+      default: undefined
     }
   },
 

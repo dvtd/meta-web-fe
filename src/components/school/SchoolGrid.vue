@@ -63,23 +63,24 @@
                   small
                   class="mr-2"
                   @click="editItem(item)"
+                  v-if="Object.assign({}, item).IsDeleted == false"
                 >
                   mdi-pencil
                 </v-icon>
                 <v-icon
                   small
                   @click="deleteItem(item)"
+                  v-if="Object.assign({}, item).IsDeleted == false"
                 >
                   mdi-delete
                 </v-icon>
-              </template>
-              <template v-slot:no-data>
-                <v-btn
-                  color="primary"
-                  @click="initialize"
+                <v-icon
+                  small
+                  @click="recoverItem(item)"
+                  v-if="Object.assign({}, item).IsDeleted == true"
                 >
-                  Reset
-                </v-btn>
+                  mdi-medical-bag
+                </v-icon>
               </template>
             </v-data-table>
           </v-card>
@@ -113,23 +114,23 @@ export default {
       dialog: false,
       dialogWarning: false,
       warningContent: '',
-      isWarning: false,
+      isRecover: false,
       editedIndex: -1,
       editedItem: {
-        ContactInfo: '',
-        Id: 0,
-        IsDeleted: false,
-        Location: 0,
-        Name: '',
-        Representative: ''
+        SchoolName: '',
+        Locations: '',
+        SchoolLevel: 'Primary',
+        Email: '',
+        PhoneNumber: '',
+        IsDeleted: false
       },
       defaultItem: {
-        ContactInfo: '',
-        Id: 0,
-        IsDeleted: false,
-        Location: 0,
-        Name: '',
-        Representative: ''
+        SchoolName: '',
+        Locations: '',
+        SchoolLevel: 'Primary',
+        Email: '',
+        PhoneNumber: '',
+        IsDeleted: false
       },
       tab: 'All',
       tabs: [
@@ -168,29 +169,33 @@ export default {
     editItem (item) {
       this.editedIndex = this.tableData.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      if (this.editedItem.IsDeleted === true) {
-        this.warningContent = 'This school: ' + this.editedItem.Name + ' is deleted! You cannot edit it!'
-        this.dialogWarning = true
-        this.isWarning = true
-        return
-      }
       this.dialog = true
     },
 
     deleteItem (item) {
       this.editedIndex = this.tableData.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.warningContent = 'Are you sure you want to delete this item?'
+      this.warningContent = 'Are you sure you want to deactivate this school?'
       this.dialogWarning = true
     },
 
     deleteItemConfirm () {
-      if (this.isWarning === true) {
+      if (this.isRecover === true) {
+        this.editedItem.IsDeleted = false
+        this.tableData[this.editedIndex].IsDeleted = false
         this.closeDelete()
         return
       }
       this.tableData.splice(this.editedIndex, 1)
       this.closeDelete()
+    },
+
+    recoverItem (item) {
+      this.editedIndex = this.tableData.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.warningContent = 'Are you sure you want to reactive this school?'
+      this.isRecover = true
+      this.dialogWarning = true
     },
 
     close () {
@@ -202,8 +207,8 @@ export default {
     },
 
     closeDelete () {
-      if (this.isWarning === true) {
-        this.isWarning = false
+      if (this.isRecover === true) {
+        this.isRecover = false
       }
       this.dialogWarning = false
       this.$nextTick(() => {
@@ -239,7 +244,7 @@ export default {
       if (status === 'Primary school') return 'success'
       else if (status === 'Secondary school') return 'amber'
       else if (status === 'High school') return 'red'
-      else return 'primary'
+      else return '#262261'
     }
   }
 }

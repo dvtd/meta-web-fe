@@ -110,9 +110,27 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-icon>
-              <v-icon color="#f1c40f">mdi-account</v-icon>
+              <v-icon color="#f1c40f">mdi-account-details</v-icon>
             </v-list-item-icon>
             <v-list-item-title class="title-drawer">Account</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="switchToStaffManagementPage">
+            <v-list-item-icon>
+              <v-icon color="#f1c40f">mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title
+              class="title-drawer"
+              >Staff Management</v-list-item-title
+            >
+          </v-list-item>
+          <v-list-item @click="switchToSchoolManagementPage">
+            <v-list-item-icon>
+              <v-icon color="#f1c40f">mdi-warehouse</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title
+              class="title-drawer"
+            >School Management</v-list-item-title
+            >
           </v-list-item>
           <v-list-item>
             <v-list-item-icon>
@@ -122,11 +140,13 @@
               >Timetable</v-list-item-title
             >
           </v-list-item>
-          <v-list-item>
+          <v-list-item @click="switchToRequestPage">
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-frequently-asked-questions</v-icon>
             </v-list-item-icon>
-            <v-list-item-title class="title-drawer">Request</v-list-item-title>
+            <v-list-item-title class="title-drawer"
+              >Request</v-list-item-title
+            >
           </v-list-item>
           <v-list-item>
             <v-list-item-icon>
@@ -136,20 +156,22 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-         <template v-slot:append>
-           <v-card class="mx-auto" max-width="400" tile color="#262261">
-            <v-list dense shaped flat rounded>
-              <v-list-item-group color="primary">
-                <v-list-item @click="logout">
-                  <v-list-item-icon>
-                    <v-icon color="#f1c40f">mdi-logout</v-icon>
-                  </v-list-item-icon>
-                   <v-list-item-title class="title-drawer">LOGOUT</v-list-item-title>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-card>
-    </template>
+      <template v-slot:append>
+        <v-card class="mx-auto" max-width="400" tile color="#262261">
+          <v-list dense shaped flat rounded>
+            <v-list-item-group color="primary">
+              <v-list-item @click="logout">
+                <v-list-item-icon>
+                  <v-icon color="#f1c40f">mdi-logout</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title class="title-drawer"
+                  >LOGOUT</v-list-item-title
+                >
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-card>
+      </template>
     </v-navigation-drawer>
   </nav>
 </template>
@@ -216,6 +238,15 @@ export default {
     logout () {
       this._logout()
       this.$router.push('/login')
+    },
+    switchToRequestPage () {
+      this.$router.push('/requestlist')
+    },
+    switchToStaffManagementPage () {
+      this.$router.push('/staffmanagement')
+    },
+    switchToSchoolManagementPage () {
+      this.$router.push('/schoolList')
     }
   }
 }
