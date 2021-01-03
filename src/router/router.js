@@ -5,6 +5,8 @@ import Index from '../views/Index.vue'
 import RequestList from '../views/RequestList'
 import RequestDetails from '@/views/RequestDetails'
 import StaffManagement from '@/views/StaffManagement'
+import SchoolList from '../views/SchoolList'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -27,6 +29,11 @@ const routes = [
         path: 'staffmanagement',
         name: 'StaffManagement',
         component: StaffManagement
+      },
+      {
+        path: 'schoolList',
+        name: 'SchoolList',
+        component: SchoolList
       }
     ]
   }

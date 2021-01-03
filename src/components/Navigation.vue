@@ -123,6 +123,15 @@
               >Staff Management</v-list-item-title
             >
           </v-list-item>
+          <v-list-item @click="switchToSchoolManagementPage">
+            <v-list-item-icon>
+              <v-icon color="#f1c40f">mdi-warehouse</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title
+              class="title-drawer"
+            >School Management</v-list-item-title
+            >
+          </v-list-item>
           <v-list-item>
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-timetable</v-icon>
@@ -235,6 +244,9 @@ export default {
     },
     switchToStaffManagementPage () {
       this.$router.push('/staffmanagement')
+    },
+    switchToSchoolManagementPage () {
+      this.$router.push('/schoolList')
     }
   }
 }
