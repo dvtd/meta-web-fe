@@ -6,6 +6,7 @@ import RequestList from '../views/RequestList'
 import RequestDetails from '@/views/RequestDetails'
 import StaffManagement from '@/views/StaffManagement'
 import SchoolList from '../views/SchoolList'
+import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
         path: 'schoolList',
         name: 'SchoolList',
         component: SchoolList
+      },
+      {
+        path: '/login',
+        name: 'Login',
+        component: Login
       }
     ]
   }
