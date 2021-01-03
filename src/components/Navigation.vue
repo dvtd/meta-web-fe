@@ -118,7 +118,7 @@
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-timetable</v-icon>
             </v-list-item-icon>
-            <v-list-item-title class="title-drawer"
+            <v-list-item-title class="title-drawer" @click="swtichToSummaryTimetablePage"
               >Timetable</v-list-item-title
             >
           </v-list-item>
@@ -223,6 +223,9 @@ export default {
     },
     swtichToRequestPage () {
       this.$router.push('/requestlist')
+    },
+    swtichToSummaryTimetablePage () {
+      this.$router.push('/summarytimetable')
     }
   }
 }
