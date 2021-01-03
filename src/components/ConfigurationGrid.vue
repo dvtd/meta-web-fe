@@ -62,7 +62,7 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-      <v-toolbar color="blue darken-4" dark>
+      <v-toolbar color="#262261" dark>
         <v-btn color="green" class="ma-2 white--text"> Save </v-btn>
         <v-spacer></v-spacer>
         <v-btn color="red" class="ma-2 white--text"> Cancel </v-btn>
