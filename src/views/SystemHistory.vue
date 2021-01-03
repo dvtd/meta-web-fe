@@ -31,7 +31,7 @@ export default {
           user: 'thaonguyen@truongvietanh.com',
           name: 'Thao Nguyen',
           email: 'thaonguyen@truongvietanh.com',
-          role: 'admin',
+          role: 'Admin',
           action: 'create user',
           time: new Date(Date.now() - 3600000 * 1).toUTCString()
         },
@@ -39,7 +39,7 @@ export default {
           user: 'thaonguyen@truongvietanh.com',
           name: 'Thao Nguyen',
           email: 'thaonguyen@truongvietanh.com',
-          role: 'admin',
+          role: 'Admin',
           action: 'update user',
           time: new Date(Date.now() - 3600000 * 2).toUTCString()
         },
@@ -47,7 +47,7 @@ export default {
           user: 'thaonguyen@truongvietanh.com',
           name: 'Thao Nguyen',
           email: 'thaonguyen@truongvietanh.com',
-          role: 'admin',
+          role: 'Admin',
           action: 'remove user',
           time: new Date(Date.now() - 3600000 * 3).toUTCString()
         },
@@ -55,7 +55,7 @@ export default {
           user: 'Dan@truongvietanh.com',
           name: 'Dan',
           email: 'Dan@truongvietanh.com',
-          role: 'teacher',
+          role: 'Teacher',
           action: 'Logged in the device',
           time: new Date(Date.now() - 3600000 * 4).toUTCString()
         },
@@ -63,7 +63,7 @@ export default {
           user: 'thaonguyen@truongvietanh.com',
           name: 'Thao Nguyen',
           email: 'thaonguyen@truongvietanh.com',
-          role: 'admin',
+          role: 'Admin',
           action: 'Approved a report',
           time: new Date(Date.now() - 3600000 * 5).toUTCString()
         },
@@ -71,7 +71,7 @@ export default {
           user: 'thaonguyen@truongvietanh.com',
           name: 'Thao Nguyen',
           email: 'thaonguyen@truongvietanh.com',
-          role: 'admin',
+          role: 'Admin',
           action: 'Disapproved a report',
           time: new Date(Date.now() - 3600000 * 6).toUTCString()
         },
@@ -79,7 +79,7 @@ export default {
           user: 'Michelle@truongvietanh.com',
           name: 'Michelle',
           email: 'Michelle@truongvietanh.com',
-          role: 'teacher',
+          role: 'Teacher',
           action: 'Logged in the Website',
           time: new Date(Date.now() - 3600000 * 7).toUTCString()
         },
@@ -87,7 +87,7 @@ export default {
           user: 'Michelle@truongvietanh.com',
           name: 'Michelle',
           email: 'Michelle@truongvietanh.com',
-          role: 'teacher',
+          role: 'Teacher',
           action: 'Created a request',
           time: new Date(Date.now() - 3600000 * 8).toUTCString()
         }
