@@ -83,7 +83,7 @@
         </v-card>
       </v-menu>
     </v-app-bar>
-    <v-navigation-drawer app v-model="drawer" color="#262261">
+    <v-navigation-drawer app  dark v-model="drawer" color="#262261">
       <v-list dense nav class="py-0">
         <v-list-item two-line class="px-0">
           <v-list-item-avatar>
