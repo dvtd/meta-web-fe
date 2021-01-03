@@ -7,6 +7,8 @@ import RequestDetails from '@/views/RequestDetails'
 import StaffManagement from '@/views/StaffManagement'
 import SchoolList from '../views/SchoolList'
 import Login from '../views/Login.vue'
+import SummaryTimetable from '../views/SummaryTimetable'
+import TimetableDetails from '../views/TimetableDetails'
 
 Vue.use(VueRouter)
 
@@ -39,7 +41,16 @@ const routes = [
       {
         path: '/login',
         name: 'Login',
-        component: Login
+        component: Login},
+        {
+        path: 'summarytimetable',
+        name: 'SummaryTimetable',
+        component: SummaryTimetable
+      },
+      {
+        path: 'timetabledetails',
+        name: 'TimetableDetails',
+        component: TimetableDetails
       }
     ]
   }
