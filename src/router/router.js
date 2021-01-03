@@ -10,6 +10,8 @@ import Login from '../views/Login.vue'
 import SummaryTimetable from '../views/SummaryTimetable'
 import TimetableDetails from '../views/TimetableDetails'
 import Configuration from '@/views/Configuration'
+import SystemHistory from '@/views/SystemHistory'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -57,6 +59,11 @@ const routes = [
         path: 'configuration',
         name: 'Configuration',
         component: Configuration
+      },
+      {
+        path: 'history',
+        name: 'History',
+        component: SystemHistory
       }
     ]
   }

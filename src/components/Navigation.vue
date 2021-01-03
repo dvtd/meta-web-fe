@@ -133,7 +133,7 @@
             </v-list-item-icon>
             <v-list-item-title class="title-drawer">Request</v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <v-list-item @click="switchToHistorytPage">
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-history</v-icon>
             </v-list-item-icon>
@@ -248,6 +248,9 @@ export default {
     },
     switchToConfigurationPage () {
       this.$router.push('/configuration')
+    },
+    switchToHistorytPage () {
+      this.$router.push('/History')
     }
   }
 }
