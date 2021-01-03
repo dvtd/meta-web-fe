@@ -12,6 +12,7 @@ import TimetableDetails from '../views/TimetableDetails'
 import Configuration from '@/views/Configuration'
 import SystemHistory from '@/views/SystemHistory'
 import SummaryReport from '@/views/SummaryReport'
+import UserProfile from '@/views/UserProfile'
 Vue.use(VueRouter)
 
 const routes = [
@@ -29,6 +30,11 @@ const routes = [
         path: 'requestdetail',
         name: 'RequestDetails',
         component: RequestDetails
+      },
+      {
+        path: 'userprofile',
+        name: 'UserProfile',
+        component: UserProfile
       },
       {
         path: 'staffmanagement',

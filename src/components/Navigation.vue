@@ -2,7 +2,6 @@
   <nav>
     <v-app-bar light flat dense app color="#f1c40f">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
       <v-toolbar-title
         ><img
           class="header-image"
@@ -75,7 +74,7 @@
         </v-card>
       </v-menu>
     </v-app-bar>
-    <v-navigation-drawer app  dark v-model="drawer" color="#262261">
+    <v-navigation-drawer app dark v-model="drawer" color="#262261">
       <v-list dense nav class="py-0">
         <v-list-item two-line class="px-0">
           <v-list-item-avatar>
@@ -98,7 +97,7 @@
             </v-list-item-icon>
             <v-list-item-title class="title-drawer">Home</v-list-item-title>
           </v-list-item>
-          <v-list-item>
+          <v-list-item @click="switchToAccountProfilePage">
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-account-details</v-icon>
             </v-list-item-icon>
@@ -119,11 +118,11 @@
             >School Management</v-list-item-title
             >
           </v-list-item>
-          <v-list-item>
+          <v-list-item @click="swtichToSummaryTimetablePage">
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-timetable</v-icon>
             </v-list-item-icon>
-            <v-list-item-title class="title-drawer" @click="swtichToSummaryTimetablePage"
+            <v-list-item-title class="title-drawer"
               >Timetable</v-list-item-title
             >
           </v-list-item>
@@ -262,6 +261,9 @@ export default {
     },
     switchToSummaryReportPage () {
       this.$router.push('/SummaryReport')
+    },
+    switchToAccountProfilePage () {
+      this.$router.push('/userprofile')
     }
   }
 }
