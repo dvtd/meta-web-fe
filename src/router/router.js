@@ -11,7 +11,7 @@ import SummaryTimetable from '../views/SummaryTimetable'
 import TimetableDetails from '../views/TimetableDetails'
 import Configuration from '@/views/Configuration'
 import SystemHistory from '@/views/SystemHistory'
-
+import SummaryReport from '@/views/SummaryReport'
 Vue.use(VueRouter)
 
 const routes = [
@@ -64,7 +64,13 @@ const routes = [
         path: 'history',
         name: 'History',
         component: SystemHistory
+      },
+      {
+        path: 'SummaryReport',
+        name: 'SummaryReport',
+        component: SummaryReport
       }
+
     ]
   }
 ]
