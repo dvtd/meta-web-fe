@@ -9,7 +9,7 @@ import SchoolList from '../views/SchoolList'
 import Login from '../views/Login.vue'
 import SummaryTimetable from '../views/SummaryTimetable'
 import TimetableDetails from '../views/TimetableDetails'
-
+import Configuration from '@/views/Configuration'
 Vue.use(VueRouter)
 
 const routes = [
@@ -41,8 +41,9 @@ const routes = [
       {
         path: '/login',
         name: 'Login',
-        component: Login},
-        {
+        component: Login
+      },
+      {
         path: 'summarytimetable',
         name: 'SummaryTimetable',
         component: SummaryTimetable
@@ -51,6 +52,11 @@ const routes = [
         path: 'timetabledetails',
         name: 'TimetableDetails',
         component: TimetableDetails
+      },
+      {
+        path: 'configuration',
+        name: 'Configuration',
+        component: Configuration
       }
     ]
   }

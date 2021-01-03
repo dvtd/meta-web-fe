@@ -12,13 +12,7 @@
       /></v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-menu
-        bottom
-        left
-        offset-y
-        origin="top right"
-        transition="scale-transition"
-      >
+      <v-menu bottom left offset-y origin="top right" transition="scale-transition">
         <template v-slot:activator="{ attrs, on }">
           <v-btn class="ml-2" min-width="0" text v-bind="attrs" v-on="on">
             <v-badge color="red" overlap>
@@ -61,9 +55,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title>Thao Nguyen</v-list-item-title>
-                <v-list-item-subtitle
-                  >thaonguyen@truongvietanh.com</v-list-item-subtitle
-                >
+                <v-list-item-subtitle>thaonguyen@truongvietanh.com</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -91,9 +83,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title class="title-drawer"
-              >Thao Nguyen</v-list-item-title
-            >
+            <v-list-item-title class="title-drawer">Thao Nguyen</v-list-item-title>
             <v-list-item-subtitle class="subtitle-drawer"
               >thaonguyen@truongvietanh.com</v-list-item-subtitle
             >
@@ -118,10 +108,7 @@
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-account</v-icon>
             </v-list-item-icon>
-            <v-list-item-title
-              class="title-drawer"
-              >Staff Management</v-list-item-title
-            >
+            <v-list-item-title class="title-drawer">Staff Management</v-list-item-title>
           </v-list-item>
           <v-list-item @click="switchToSchoolManagementPage">
             <v-list-item-icon>
@@ -144,9 +131,7 @@
             <v-list-item-icon>
               <v-icon color="#f1c40f">mdi-frequently-asked-questions</v-icon>
             </v-list-item-icon>
-            <v-list-item-title class="title-drawer"
-              >Request</v-list-item-title
-            >
+            <v-list-item-title class="title-drawer">Request</v-list-item-title>
           </v-list-item>
           <v-list-item>
             <v-list-item-icon>
@@ -157,6 +142,18 @@
         </v-list-item-group>
       </v-list>
       <template v-slot:append>
+         <v-card class="mx-auto" max-width="400" tile color="#262261">
+          <v-list dense shaped flat rounded>
+            <v-list-item-group color="primary">
+              <v-list-item @click="switchToConfigurationPage">
+                <v-list-item-icon>
+                  <v-icon color="#f1c40f">mdi-cog</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title class="title-drawer">Configuration</v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-card>
         <v-card class="mx-auto" max-width="400" tile color="#262261">
           <v-list dense shaped flat rounded>
             <v-list-item-group color="primary">
@@ -164,9 +161,7 @@
                 <v-list-item-icon>
                   <v-icon color="#f1c40f">mdi-logout</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title class="title-drawer"
-                  >LOGOUT</v-list-item-title
-                >
+                <v-list-item-title class="title-drawer">LOGOUT</v-list-item-title>
               </v-list-item>
             </v-list-item-group>
           </v-list>
@@ -247,9 +242,12 @@ export default {
     },
     switchToSchoolManagementPage () {
       this.$router.push('/schoolList')
-      },
+    },
     swtichToSummaryTimetablePage () {
       this.$router.push('/summarytimetable')
+    },
+    switchToConfigurationPage () {
+      this.$router.push('/configuration')
     }
   }
 }
