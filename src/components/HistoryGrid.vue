@@ -9,7 +9,8 @@
           :max-height="icon ? 90 : undefined"
           :width="icon ? 'auto' : '100%'"
           elevation="6"
-          class="text-start v-card--material__heading mb-n6 blue darken-4"
+          class="text-start v-card--material__heading mb-n6"
+          color="#262261"
           dark
         >
           <slot v-if="$slots.heading" name="heading" />
@@ -74,7 +75,7 @@
           </template>
           <v-date-picker v-model="toDate" @input="menu2 = false"></v-date-picker>
         </v-menu>
-        <v-btn class="ma-2" color="blue darken-4" dark>
+        <v-btn class="ma-2" color="#262261" dark>
           Find
           <v-icon dark right> mdi-update </v-icon>
         </v-btn>
@@ -87,7 +88,7 @@
           hide-details
         ></v-text-field>
       </div>
-      <v-tabs dark background-color="blue darken-4"> </v-tabs>
+      <v-tabs dark background-color="#262261"> </v-tabs>
       <v-card>
         <v-data-table
           :headers="headerTable"
